@@ -80,3 +80,61 @@ Linux默认开机为用户打开七个终端,前6个是字符终端,第7个是�
 sudo reboot
 系统将会切换到运行级别6,即重启.或者使用shutdown进行关机,最简单的shutdown命令:
 sudo shutdown now
+
+# Chapter7 Unix键盘
+
+信号名 | 含义 | 快捷键
+------| ----| ----
+erase  | 删除一个字符 | ^H
+werase | 删除一个单词 | ^W
+kill | 删除一行 | ^U
+flush | 清空缓存 | ^O
+eof | 文件末尾 | ^D
+intr | 中断 | ^C
+quit | 退出 | ^\
+
+# Chapter8 能够立即使用的命令
+
+这章的命令不实用，实用bc命令还不如使用nodejs
+
+# Chapter9 文档资料：Unix手册与Info
+
+推荐使用的man手册命令
+
+命令|  |
+---| ---
+RETURN | 向下一行
+鼠标滚轮 | 上下移动行
+SPACE | 向下一页
+b | 向上一页
+g | 移到顶部
+G | 移到末尾
+/pattern | 向下搜索
+n | 向下搜索
+N | 向上搜索
+
+*在man页输入！就可以敲击命令, 比如！pwd，在浏览的过程中查看当前目录*
+
+## 9.8 Unix手册的组织方式
+
+1. 命令
+2. 系统调用
+3. 库函数
+4. 特殊文件
+5. 文件格式
+6. 游戏
+7. 杂项
+8. 系统管理
+
+在我的Ubuntu系统中man手册存在/usr/share/man文件夹，每一节存在单独的一个子文件夹中，比如what(1)命令的手册文件名是whatis.1.gz，存在man1文件夹中，read(2)系统调用的手册文件名是read.2.gz，存在man2文件夹。默认情况下man会在所有的子文件下查找手册文件，并显示找到的第一个手册文件。
+
+可以实用-f选项显示简略的信息，-f将查找整个手册，找到所有的手册文件，并显示手册的Name信息。也可以实用更快捷的*wathis*命令，如下所示
+
+```
+gui@hp:~$ man -f kill
+kill (2)             - send signal to a process
+kill (1)             - send a signal to a process
+gui@hp:~$ whatis kill
+kill (2)             - send signal to a process
+kill (1)             - send a signal to a process
+```

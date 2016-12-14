@@ -95,6 +95,8 @@ quit | 退出 | ^\
 
 # Chapter8 能够立即使用的命令
 
+可以实用whereis查找命令的位置，如果是内置命令，则要实用type显示命令的信息。
+
 这章的命令不实用，实用bc命令还不如使用nodejs
 
 # Chapter9 文档资料：Unix手册与Info
@@ -138,3 +140,14 @@ gui@hp:~$ whatis kill
 kill (2)             - send signal to a process
 kill (1)             - send a signal to a process
 ```
+
+可以实用-k选项搜索关键字，man将在所有手册文件的Name节，也可以使用apropos命令，效果是一样的。
+
+# 9.14 foo, bar和foobar
+foo，bar，foobar在Unix文化中通常用来引用一个没有名字的东西。
+
+# Chapter12 实用Shell变量和选项
+
+只有全局变量才能被子进程继承，可以使用export命令将本地变量添加到父进程的全局变量列表中，这样就能被子进程继承。可以通过环境变量向子进程传递消息，但是子进程没有办法通过环境变量给父进程反馈消息。
+
+Shell有一些选项可以控制它的行为，可以实用set命令操纵这些选项。set -o ignoreeof表示shell将忽略^D，set +o ignoreeof则忽略eof。

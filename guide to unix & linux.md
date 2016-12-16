@@ -151,3 +151,95 @@ foo，bar，foobar在Unix文化中通常用来引用一个没有名字的东西�
 只有全局变量才能被子进程继承，可以使用export命令将本地变量添加到父进程的全局变量列表中，这样就能被子进程继承。可以通过环境变量向子进程传递消息，但是子进程没有办法通过环境变量给父进程反馈消息。
 
 Shell有一些选项可以控制它的行为，可以使用set命令操纵这些选项。set -o ignoreeof表示shell将忽略^D，set +o ignoreeof则不忽略^D。
+
+可以使用env查看*进程*的所有全局变量，set查看shell的所有变量。
+
+
+# Chapter13 实用Shell： 命令和定制
+
+除了字母和数字外很多字符在Unix中有特殊含义，称为元字符。有三种方法可以让Shell忽略元字符的特殊含义：
+1. ""
+2. ''
+3.  \
+这三种方法会使得Shell从注意元字符的模式切换到不注意元字符的模式。
+
+## 13.4 内置命令
+
+type可以查看命令是否是内置命令，关键字还是外部命令。
+Unix手册没有内部命令的帮助信息，可以实用help内部命令查看内部命令的帮助信息。
+
+## 13.14 命令替换
+可以实用 \` 字符进行命令替换
+
+## 13.16 历史列表
+可以实用fc -l或者history查看历史命令列表。
+* ！！ 重复上一条命令
+* ！number 重复第几条命令
+* ！number:s/pattern/replacement/ 重复第几条命令并做出修改
+
+如果是重复上一条命令，还可以用<br>
+^patter^replacement
+
+## 13.24 alias, unalias
+
+alias [name=commands]，可以使用\\临时挂起别名
+
+# Chapter14 实用Shell：初始化文件
+
+有几个初始化文件：环境文件，登录文件，注销文件，在我的Ubuntu系统中分别对应：.bashrc，.profile，.bash_logout。非登录Shell执行环境文件，登录shell还会执行登录文件。
+
+虚拟终端，虚拟终端打开的子Shell都是未登录Shell，可以实用login命令进行登录，变成登录Shell。ssh必须登录，所以是登录shell。
+
+# Chapter16 过滤器：简介和基本操作
+
+管道线：*tee*<br>
+tee [-a] file...
+
+*cat*:<br>
+cat [-bns] [file...]
+
+-n 每行插入行号
+-b 和-n一起使用，不对空行编号
+-s 挤压多个空行成一行
+
+划分文件：split
+split [-d] [-a num] [-l lines] [file [prefix]]
+split将文件按行拆分成若干个小的文件。
+-l 指示每个文件多少行
+-d 默认文件以小写字母加上前缀（默认为x）命名，比如xaa,xab,xac...。
+prefix制定前缀。
+
+翻转：tac<br>
+tac [file...]<br>
+tac命令组合前先将文件翻转。
+
+rev [file...]<br>
+将每行翻转
+
+colrm [startcol [endcol]]
+
+# Chapter17 过滤器：比较和抽取
+
+cmp file1 file2<br>
+比较任意两个文件
+
+comm [-123] file1 file2<br>
+比较两个有序的文本文件，第一列输出第一个文件独有的，第二列输出第二个文件独有的，第三个输出公共的。-123，表示抑制输出。
+
+比较无序文件：diff<br>
+默认给出简略信息，可以实用-u选项给出上下文，还可以控制上下文的行数，这时用-U，比如-U5显示5行的上下文信息。-y选项并排显示。
+
+抽取数据列：cut<br>
+cut -c list [file...]
+和colrm相反，cut抽取某些列，列由list指定，可以有多个列，中间用逗号隔开，不能有空格，比如：
+```
+1,8,10
+1,8,10-15
+```
+都是合理的。如果不想按列抽取，则可以按分隔符抽取，语法如下：<br>
+cut -f list [-d delimiter] [-s] [file...]<br>
+其中-s表示suppress，当一行没有遇到定界符时，默认会输出这一行，可以用-s选项忽略这一行。
+
+组合数据列：paste<br>
+paste [-d char...] [file...]<br>
+假定每个文件包含一列，paste将会把文件用分隔符组合成一个文件，默认的分隔符是tab，Unix中tab是8个空格。

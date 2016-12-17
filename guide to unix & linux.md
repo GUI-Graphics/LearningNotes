@@ -243,3 +243,29 @@ cut -f list [-d delimiter] [-s] [file...]<br>
 组合数据列：paste<br>
 paste [-d char...] [file...]<br>
 假定每个文件包含一列，paste将会把文件用分隔符组合成一个文件，默认的分隔符是tab，Unix中tab是8个空格。
+
+创建行号：nl<br>
+nl [-v start] [-i increment] [-b a] [file...]<br>
+
+nl默认忽略空行，要对空行记录行数需要加上-b a，选项。
+
+统计命令：wc<br>
+wc [-clLw] [file...]<br>
+wc 统计行数，单词数和字符数，如果指定不止一个文件，则还会输出一行总的统计信息。如果不想显示所有信息，可以用-c,-l,-w制定想要看的信息。-L则显示最长行的字符数。
+
+expand [-i] [-t size | -t list] [file...]<br>
+将tab扩展成空格，默认是8个空格，也可以用-t制定，如果只想扩展行头的tab，使用-i。
+
+# Chapter19 过滤器
+grep抽取包含特定模式的行。<br>
+grep [-cilLnrsvwx] pattern [file...]<br>
+grep 默认输出所有符合特定模式的行，使用-c选项则输出总的行数，例如：<br>
+ls -F /etc | grep -c '/'<br>
+将输出etc目录下的子目录数。<br>
+grep对大小写敏感，可以用-i选项忽略大小写。<br>
+如果想得到筛选的行在源的位置，使用-n，选项。<br>
+当不止一个文件时，可以使用-l(list filename)，输出包含模式的文件。<br>
+-w，只搜索完整的单词。<br>
+-v，选取不包含模式的行。<br>
+-r，对目录下的所有文件，包括子目录下的文件进行过滤。<br>
+-s，如果对文件没有权限会报告错误，可以使用-s选项抑制错误输出。

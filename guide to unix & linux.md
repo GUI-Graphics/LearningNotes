@@ -269,3 +269,41 @@ grep对大小写敏感，可以用-i选项忽略大小写。<br>
 -v，选取不包含模式的行。<br>
 -r，对目录下的所有文件，包括子目录下的文件进行过滤。<br>
 -s，如果对文件没有权限会报告错误，可以使用-s选项抑制错误输出。
+
+sort<br>
+sort [-dfnru] [-o outfile] [infile...]<br>
+-d(dictionary)只查看数字，字母和空白符，当包含妨碍排序的字符时，可以使用这个选项。<br>
+-f(fold)忽略大小写。<br>
+-n，识别行开头的数字，按数字排序。<br>
+-r，返乡排序。<br>
+-c，检查是否有序。<br>
+-u，合并向同行，只留一行。<br>
+-o，暂存排序结果，将结果输出到文件
+
+## 更改排序标准
+export LC_COLLATE=C
+export LC_COLLATE=POSIX
+
+## 19.2 查找重复行：uniq
+uniq [-cdu] [infile [outfile]]<br>
+uniq处理有序数据，默认删除重复行然后输出<br>
+-d，只查看重复行<br>
+-u，只查看唯一行<br>
+-c，统计重复次数。
+
+## 合并有序数据：join
+join [-i] [-a1|-v1] [-a2|-v2] [-1 field1] [-2 field2] file1 file2<br>
+jion需要按照字符关键字排序。<br>
+* -i，忽略大小写
+* -a1，外连接，不论匹配与否将一中的所有条目输出
+* -v1，输出1中不匹配的条目
+
+## 转换字符：tr
+tr [-cds] set1 [set2]<br>
+tr将集合1中的字符转换成集合2中的字符，注意：<br>
+tr abcd Ax<br>
+tr abcd Axxx<br>
+意思是一样的，都是将a变成A，bcd变成x，还可以实用正则表达式制定集合如：<br>
+tr [:upper:] [:lower:]<br>
+-c选项制定不在set1中的字符转换成set2中的字符。<br>
+-s选项将连续的集合1中的字符压缩成单字符。
